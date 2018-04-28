@@ -11,18 +11,18 @@ namespace App\Command;
  */
 class CommandBuilder
 {
-    /** @var string */
-    private $commandName;
+    /** @var CommandTypes */
+    private $commandType;
 
     /**
      * コマンドの種類指定
      *
-     * @param string $commandName
+     * @param CommandTypes $commandType
      * @return CommandBuilder
      */
-    public function setCommand(string $commandName): CommandBuilder
+    public function setCommand(CommandTypes $commandType): CommandBuilder
     {
-        $this->commandName = $commandName;
+        $this->commandType = $commandType;
         return $this;
     }
 
@@ -33,12 +33,12 @@ class CommandBuilder
      */
     public function build(): CommandInterface
     {
-        /** @var CommandInterface $command */
-        $command = null;
+        // CommandTypesにより動的にコマンドのクラスを指定する
+        $commandName = '' . $this->commandType;
 
-        if ($this->commandName === 'add') {
-            $command = new AddCommand();
-        }
+        /** @var CommandInterface $command */
+        $command = new $commandName;
+
         return $command;
     }
 }
