@@ -17,4 +17,10 @@ class RemoveCommand implements CommandInterface
         // TODO: Implement exec() method.
         return true;
     }
+
+    public function checkArgs(array $args): bool
+    {
+        // TODO: Implement checkArgs() method.
+        return true;
+    }
 }

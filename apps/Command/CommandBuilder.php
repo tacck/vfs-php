@@ -14,6 +14,9 @@ class CommandBuilder
     /** @var CommandTypes */
     private $commandType;
 
+    /** @var array */
+    private $args;
+
     /**
      * コマンドの種類指定
      *
@@ -23,6 +26,12 @@ class CommandBuilder
     public function setCommand(CommandTypes $commandType): CommandBuilder
     {
         $this->commandType = $commandType;
+        return $this;
+    }
+
+    public function setArguments(array $args): CommandBuilder
+    {
+        $this->args = $args;
         return $this;
     }
 
@@ -38,6 +47,7 @@ class CommandBuilder
 
         /** @var CommandInterface $command */
         $command = new $commandName;
+        $command->checkArgs($this->args);
 
         return $command;
     }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Test;
 
 use App\Command\CommandTypes;
@@ -8,19 +9,27 @@ use App\Command\CommandBuilder;
 class CommandBuilderTest extends TestCase
 {
 
-    public function test_引数に応じたコマンドとなることの確認_追加() {
+    public function test_引数に応じたコマンドとなることの確認_追加()
+    {
         $commandType = new CommandTypes('add');
+        $args = ['exists_file'];
+
         $command = (new CommandBuilder())
-                    ->setCommand($commandType)
-                    ->build();
+            ->setCommand($commandType)
+            ->setArguments($args)
+            ->build();
 
         $this->assertEquals('App\Command\AddCommand', get_class($command));
     }
 
-    public function test_引数に応じたコマンドとなることの確認_削除() {
+    public function test_引数に応じたコマンドとなることの確認_削除()
+    {
         $commandType = new CommandTypes('remove');
+        $args = ['exists_file'];
+
         $command = (new CommandBuilder())
             ->setCommand($commandType)
+            ->setArguments($args)
             ->build();
 
         $this->assertEquals('App\Command\RemoveCommand', get_class($command));
@@ -29,7 +38,8 @@ class CommandBuilderTest extends TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function test_引数に応じたコマンドとなることの確認_存在しないコマンド() {
+    public function test_引数に応じたコマンドとなることの確認_存在しないコマンド()
+    {
         $commandType = new CommandTypes('unknown_command');
     }
 }

@@ -12,4 +12,6 @@ namespace App\Command;
 interface CommandInterface
 {
     public function exec(): bool;
+
+    public function checkArgs(array $args): bool;
 }

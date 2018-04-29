@@ -17,4 +17,22 @@ class AddCommand implements CommandInterface
         // TODO: Implement exec() method.
         return true;
     }
+
+    public function checkArgs(array $args): bool
+    {
+        // 引数は1つだけ受け付ける
+        if (count($args) !== 1) {
+            throw new \InvalidArgumentException('File count is wrong.');
+        }
+        // ファイルとして存在する引数を受け付ける
+        if (!file_exists($args[0])) {
+            throw new \RuntimeException('File not found:' . $args[0]);
+        }
+        // 通常ファイルとして存在する引数を受け付ける
+        if (!is_file($args[0])) {
+            throw new \RuntimeException('Argument is not regular file:' . $args[0]);
+        }
+
+        return true;
+    }
 }
